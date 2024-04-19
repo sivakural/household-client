@@ -1,0 +1,29 @@
+.header, .navbar {
+    background-color: cornflowerblue;
+    opacity: 0.9;
+}
+
+.logo-span {
+    padding: 12px;
+    display: inline-flex;
+}
+
+.logo {
+    background-color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.profile {
+    display: inline-flex;
+    float: right;
+    padding: 12px;
+}
+
+.profile .logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}

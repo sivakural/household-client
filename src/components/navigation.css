@@ -1,0 +1,32 @@
+.navbar {
+    display: block;
+    width: auto;
+    height: calc(100% - 54px);
+    opacity: 0.8;
+    float: left;
+}
+
+.navbar::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.navbar ul {
+    list-style: none;
+}
+
+li {
+    padding: 12px;
+}
+
+li a {
+    text-decoration: none;
+    color: #e6ede6;
+    text-transform: uppercase;
+}
+
+li:hover {
+    background-color: #a3a0a0;
+    color: white;
+}

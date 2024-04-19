@@ -1,0 +1,15 @@
+.notification-bar  {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    padding: 5px;
+}
+
+.err {
+    background-color: rgb(195, 45, 45);
+}
+
+.success {
+    background-color: #5ca68d;
+}

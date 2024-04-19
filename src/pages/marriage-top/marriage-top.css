@@ -1,0 +1,138 @@
+.marriage-top {
+    padding: 12px;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
+    height: 92vh;
+}
+
+.marriage-top * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.marriage-top::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.marriagetop-title {
+    display: inline-flex;
+    margin-top: 10px;
+}
+
+.entry {
+    display: inline-flex;
+    float: right;
+    background-color: #51a5ed;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.back {
+    display: inline-flex;
+    float: left;
+    background-color: #51a5ed;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.table {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    /* max-height: 555px; */
+}
+
+.table thead, .table tbody {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table tr {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+}
+
+.table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    display: block;
+    width: 100%;
+    white-space: normal;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #51a5ed;
+    color: white;
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+    flex: 0 0 5%;
+    max-width: 5%;
+}
+
+.table th:nth-child(6), .table td:nth-child(6) {
+    flex: 0 0 10%;
+    max-width: 10%;
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+    flex: 0 0 8%;
+    max-width: 8%;
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+
+.table th:nth-child(7), .table th:nth-child(8),
+.table td:nth-child(7), .table td:nth-child(8) {
+    flex: 0 0 10%;
+    max-width: 10%;
+}
+
+.actions {
+    height: 15px;
+    width: 15px;
+    margin-right: 10px;
+}
