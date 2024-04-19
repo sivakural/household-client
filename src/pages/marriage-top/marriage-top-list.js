@@ -42,7 +42,7 @@ export default function MarriageTopList(props) {
             if (res.res) {                
                 setSearch(true);
                 res.result = res.result.sort((a, b) => {
-                    return new Date(b.day) - new Date(a.day);
+                    return new Date(a.day) - new Date(b.day);
                 })
                 setResult(res.result);
             } else {

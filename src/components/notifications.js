@@ -11,7 +11,7 @@ const Notifications = (props) => {
                 setShowNotification(false);
             }, 2000);
         }
-    }, [props.notification.type]);
+    }, [props.notification]);
 
     console.log(props);
     return(
