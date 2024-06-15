@@ -5,7 +5,7 @@ const Notifications = (props) => {
     const [showNotification, setShowNotification] = useState(false);
 
     useEffect(() => {
-        if (props.notification.type > 0 && !showNotification) {
+        if (props.notification.type >= 0 && !showNotification) {
             setShowNotification(true);
             setTimeout(() => {
                 setShowNotification(false);

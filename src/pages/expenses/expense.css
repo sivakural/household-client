@@ -1,0 +1,36 @@
+.expenselistTable th:nth-child(3) {
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+}
+
+.expenselistTable th:nth-child(4) {
+    flex: 0 0 47% !important;
+    max-width: 47% !important;
+}
+
+.expenselistTable tr:nth-child(even) {
+    background-color: #fff !important;
+}
+
+.inner-table {
+    width: -webkit-fill-available !important;
+}
+
+.inner-table td:nth-child(1) {
+    flex: 0 0 25.5% !important;
+    max-width: 25.5% !important;
+}
+
+.inner-table td:nth-child(2) {
+    flex: 0 0 62.5% !important;
+    max-width: 62.5% !important;
+}
+
+.inner-table td:nth-child(6) {
+    flex: 0 0 10% !important;
+    max-width: 10% !important;
+}
+
+.expense-table th:nth-child(2), .expense-table td:nth-child(2) {
+    flex: 0 0 11.5% !important;
+}

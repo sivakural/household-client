@@ -7,9 +7,7 @@ import Notifications from "../../components/notifications";
 
 export default function MarriageTopList(props) {
     const ths = ['S.No', 'Day', 'Village', 'Street', 'Name', 'Amount', 'Others', 'Action'];
-    const { mtlist, mtdelete, ntlist, ntdelete, btlist, btdelete, ktlist, ktdelete, moiilist, moiidelete, searchurl } = GetPaths()
-    const [error, setError] = useState(null);
-    const [isLoded, setIsLoaded] = useState(false);
+    const { mtlist, mtdelete, ntlist, ntdelete, btlist, btdelete, ktlist, ktdelete, moiilist, moiidelete, searchurl } = GetPaths();
     const [search, setSearch] = useState(false);
     const [result, setResult] = useState([]);
     const [notification, setNotification] = useState({ type: -1, message: '' });
@@ -29,8 +27,13 @@ export default function MarriageTopList(props) {
 
     useEffect(() => {
         if (!props.searchObj) return;
+
         // remove empty key from object
         let newObj = Object.fromEntries(Object.entries(props.searchObj).filter(([_, v]) => v != ''));
+
+        // reset the result array
+        setResult([]);
+
         fetch(searchurl, {
             method: 'post',
             body: JSON.stringify(newObj),
@@ -38,34 +41,42 @@ export default function MarriageTopList(props) {
                 "Content-Type": "application/json"
             }
         }).then(res => res.json()).then(res => {
-            setIsLoaded(true);
-            if (res.res) {                
+            if (res.res) {
                 setSearch(true);
                 res.result = res.result.sort((a, b) => {
                     return new Date(a.day) - new Date(b.day);
                 })
                 setResult(res.result);
+                setNotification({ type: 1, message: 'Successfully getting list...' });
             } else {
-                setError(res.err)
+                setNotification({ type: 0, message: 'Failed to get list...' + res.err });
             }
         }).catch(err => {
-            setIsLoaded(true);
-            setError(err)
+            setNotification({ type: 0, message: 'Failed to get list...' + err.status });
         })
     }, [props.searchObj])
 
     useEffect(() => {
         if (!api.list) return;
+
+        // reset the result array
+        setResult([]);
+
         fetch(api.list).then(res => res.json()).then(res => {
-            setIsLoaded(true);
             if (res.res) {
-                setResult(res.result);
+                let resData = res.result;
+                if (pathname === '/moii-list') {
+                    resData = resData.sort((a, b) => {
+                        return new Date(a.day) - new Date(b.day);
+                    });
+                }
+                setResult(resData);
+                setNotification({ type: 1, message: 'Successfully getting list...' });
             } else {
-                setError(res.err)
+                setNotification({ type: 0, message: 'Failed to get list...' + res.err });
             }
-        }).catch((error) => {
-            setIsLoaded(true);
-            setError(error)
+        }).catch(err => {
+            setNotification({ type: 0, message: 'Failed to get list...' + err.status });
         })
     }, [api.list]);
 
@@ -90,43 +101,37 @@ export default function MarriageTopList(props) {
         })
     }
 
-    if (error) {
-        return <div>Error: {error.message}</div>
-    } else if (!isLoded) {
-        return <div>Loading...</div>
-    } else {
-        return (
-            <>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            {ths.map((tHead) => <th key={tHead.toString()}>{tHead}</th>)}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {result.map((item, index) => <tr style={{ backgroundColor: (item.type === 'moii' && search) ? '#94f694' : '' }} key={item.id}>
-                            <td>{index + 1}</td>
-                            <td>{item.day}</td>
-                            <td>{item.village}</td>
-                            <td style={{ textTransform: 'capitalize' }}>{item.street === 'Nothing' ? '' : item.street}</td>
-                            <td>{item.name} {item.pattam === 'Nothing' ? '' : item.pattam}</td>
-                            <td>Rs.{new Intl.NumberFormat('en-IN').format(item.amount)}</td>
-                            <td>{item.gold} {item.others}</td>
-                            <td>
-                                {!search && <Link onClick={(event) => setActivateTab(event, item)}>
-                                    <img className="actions" src={editimg} />
-                                </Link>}
-                                {!search && <a style={{ cursor: 'pointer' }} onClick={() => deleteRow(item, index)}>
-                                    <img className="actions" src={deleteimg} />
-                                </a>}
-                                {search && item.type}
-                            </td>
-                        </tr>)}
-                    </tbody>
-                </table>
+    return (
+        <>
+            <table className="table">
+                <thead>
+                    <tr>
+                        {ths.map((tHead) => <th key={tHead.toString()}>{tHead}</th>)}
+                    </tr>
+                </thead>
+                <tbody>
+                    {result.map((item, index) => <tr style={{ backgroundColor: (item.type === 'moii' && search) ? '#94f694' : '' }} key={item.id}>
+                        <td>{index + 1}</td>
+                        <td>{item.day}</td>
+                        <td>{item.village}</td>
+                        <td style={{ textTransform: 'capitalize' }}>{item.street === 'Nothing' ? '' : item.street}</td>
+                        <td>{item.name} {item.pattam === 'Nothing' ? '' : item.pattam}</td>
+                        <td>Rs.{new Intl.NumberFormat('en-IN').format(item.amount)}</td>
+                        <td>{item.gold} {item.others}</td>
+                        <td>
+                            {!search && <Link onClick={(event) => setActivateTab(event, item)}>
+                                <img className="actions" src={editimg} />
+                            </Link>}
+                            {!search && <a style={{ cursor: 'pointer' }} onClick={() => deleteRow(item, index)}>
+                                <img className="actions" src={deleteimg} />
+                            </a>}
+                            {search && item.type}
+                        </td>
+                    </tr>)}
+                </tbody>
+            </table>
 
-                {notification.type >= 0 && <Notifications notification={notification} />}
-            </>
-        )
-    }
+            {notification.type >= 0 && <Notifications notification={notification} />}
+        </>
+    )
 }

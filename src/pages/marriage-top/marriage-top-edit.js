@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { json, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './edit.css'
 import GetPaths from '../../route';
 import MarriageTopList from './marriage-top-list';

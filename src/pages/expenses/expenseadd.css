@@ -1,0 +1,104 @@
+.expenseaddTable {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    /* max-height: 555px; */
+}
+
+.expenseaddTable thead, .expenseaddTable tbody {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+.expenseaddTable thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.expenseaddTable tr {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+}
+
+.expenseaddTable td,
+.expenseaddTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    display: block;
+    width: 100%;
+    white-space: normal;
+}
+
+.expenseaddTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.expenseaddTable tr:hover {
+    background-color: #ddd;
+}
+
+.expenseaddTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #51a5ed;
+    color: white;
+}
+
+.expenseaddTable {
+    width: -webkit-fill-available !important;
+}
+
+.expenseaddTable th:nth-child(1),
+.expenseaddTable td:nth-child(1) {
+    flex: 0 0 5%;
+    max-width: 5%;
+}
+
+.expenseaddTable th:nth-child(2), .expenseaddTable td:nth-child(2) {
+    flex: 0 0 11% !important;
+    max-width: none !important;
+}
+
+.expenseaddTable th:nth-child(3), .expenseaddTable td:nth-child(3) {
+    flex: 0 0 22% !important;
+    max-width: none !important;
+}
+
+.expenseaddTable th:nth-child(4), .expenseaddTable td:nth-child(4) {
+    flex: 0 0 36% !important;
+    max-width: none !important;
+}
+
+.expenseaddTable th:nth-child(5), .expenseaddTable td:nth-child(5) {
+    flex: 0 0 16% !important;
+    max-width: none !important;
+}
+
+.expenseaddTable th:nth-child(6), .expenseaddTable td:nth-child(6) {
+    flex: 0 0 10%;
+    max-width: 10%;
+}
+
+.expenseaddTable tbody tr:hover {
+    background-color: white !important;
+}
+
+.categorey, .done, .amount {
+    width: -webkit-fill-available;
+}
+
+input {
+    border: none;
+}
+
+.submitBtn {
+    margin-top: 1.5rem;
+}
