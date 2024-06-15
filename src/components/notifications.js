@@ -12,8 +12,7 @@ const Notifications = (props) => {
             }, 2000);
         }
     }, [props.notification]);
-
-    console.log(props);
+    
     return(
         <>
         { showNotification &&  <span className={"notification-bar " + (props.notification.type ? 'success' : 'err')}>{ props.notification.message }</span> }

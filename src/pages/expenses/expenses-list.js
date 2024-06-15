@@ -5,36 +5,49 @@ import SetPerson from '../utils';
 import GetPaths from "../../route";
 import Notifications from "../../components/notifications";
 import editimg from '../../edit.png'
+import FilterComponent from '../../components/filter';
+import { handleAPICall } from '../util';
 
 export default function ExpensesList() {
     const ths = ['S.No', 'Day', 'Categorey', 'Done', 'Amount', 'Action'];
     const [result, setResult] = useState([]);
     const [notification, setNotification] = useState({ type: -1, message: '' });
-    const { expenselist } = GetPaths();
+    const { expenselist, categories, expensesearch } = GetPaths();
     const [person, setPerson] = useState({});
+    const [category, setCategory] = useState([]);
+    const [dataFromChild, setDataFromChild] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
         SetPerson(null, getPerson);
+        handleAPICall('get', categories, 'categories list', null, setCategory).then((res) => {
+            setNotification(res);
+        });
     }, [])
+
+    const getExpenseList = () => {
+        handleAPICall('get', `${expenselist}/${person.personID}`, 'expense list', null, setResult).then(res => {
+            setNotification(res);
+        });
+    }
 
     useEffect(() => {
         if (!person?.personID) return;
-
-        fetch(`${expenselist}/${person.personID}`, {
-            method: 'get'
-        }).then(res => res.json()).then(res => {
-            if (res.res) {
-                console.log(res.result);
-                setResult(res.result);
-                setNotification({ type: 1, message: 'Successfully getting expense list...' });
-            } else {
-                setNotification({ type: 0, message: 'Failed to get list...' + res.err });
-            }
-        }).catch(err => {
-            setNotification({ type: 0, message: 'Failed to get list...' + err.status });
-        })
+        getExpenseList();
     }, [person?.personID]);
+
+    useEffect(() => {
+        if (dataFromChild.hasOwnProperty('from')) {
+            if (dataFromChild.from || dataFromChild.to || dataFromChild.categorey) {
+                dataFromChild.personID = person.personID;
+                handleAPICall('post', expensesearch, 'expense list', dataFromChild, setResult).then(res => {
+                    setNotification(res);
+                });
+            }
+        } else if (dataFromChild.clear){
+            getExpenseList();
+        }
+    }, [dataFromChild])
 
     const getPerson = (person) => {
         console.log("person: ", person);
@@ -52,8 +65,15 @@ export default function ExpensesList() {
         navigate('expenseadd', { state: { obj: sendingData } })
     }
 
+    const handleDataFromChild = (data) => {
+        setDataFromChild(data);
+    }
+
     return (
         <>
+            {/* setting filter base */}
+            <FilterComponent categories={category} sendDataToParent={handleDataFromChild} />
+
             <table className="expenselistTable table">
                 <thead>
                     <tr>
@@ -79,7 +99,7 @@ export default function ExpensesList() {
                                 </table>
                             </td>
                             <td style={{ flex: '0 0 10%', maxWidth: '10%', display: 'inline-flex', alignItems: 'center' }}>
-                                <Link style={{ verticalAlign: '-webkit-baseline-middle'}} onClick={(event) => setActivateTab(event, data)}>
+                                <Link style={{ verticalAlign: '-webkit-baseline-middle' }} onClick={(event) => setActivateTab(event, data)}>
                                     <img className="actions" src={editimg} />
                                 </Link>
                             </td>

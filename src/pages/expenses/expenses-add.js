@@ -6,6 +6,7 @@ import deleteimg from '../../delete.png';
 import GetPaths from "../../route";
 import Notifications from "../../components/notifications";
 import './expenseadd.css';
+import { handleAPICall } from '../util';
 
 export default function ExpsensesAdd() {
     const ths = ['S.No', 'Day', 'Categorey', 'Done', 'Amount', 'Action'];
@@ -25,39 +26,17 @@ export default function ExpsensesAdd() {
 
     useEffect(() => {
         SetPerson(null, getPerson);
-        fetch(categories, {
-            method: 'get'
-        }).then(res => res.json()).then(res => {
-            if (res.res) {
-                setCategory(res.result);
-                setNotification({ type: 1, message: 'Successfully getting categories list...' });
-            } else {
-                setNotification({ type: 0, message: 'Failed to get list...' + res.err });
-            }
-        }).catch(err => {
-            setNotification({ type: 0, message: 'Failed to get list...' + err.status });
-        })
+        handleAPICall('get', categories, 'categories list', null, setCategory).then((res) => {
+            setNotification(res);
+        });
     }, [])
 
     useEffect(() => {
         if (state?.obj) {
             setIsEdit(true);
             let inputs = state.obj;
-            fetch(expenseget, {
-                method: 'post',
-                body: JSON.stringify(inputs),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(res => res.json()).then(res => {
-                if (res.res) {
-                    console.log(res.result);
-                    setInputs([...res.result]);
-                } else {
-                    setNotification({ type: 0, message: 'Failed to insert/update record...' });
-                }
-            }).catch(err => {
-                setNotification({ type: 0, message: 'Failed to insert/update record...' });
+            handleAPICall('post', expenseget, null, inputs, setInputs).then(res => {
+                setNotification(res);
             });
         }
     }, [state]);
@@ -86,22 +65,11 @@ export default function ExpsensesAdd() {
     const submitForm = (e) => {
         e.preventDefault();
         console.log(inputs);
-        fetch(isEdit ? expenseupdate : expenseentry, {
-            method: 'post',
-            body: JSON.stringify(inputs),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res => res.json()).then(res => {
-            if (res.res) {
+        handleAPICall('post', isEdit ? expenseupdate : expenseentry, null, inputs, null).then(res => {
+            if (res.type) 
                 navigate(-1);
-            } else {
-                setNotification({ type: 0, message: 'Failed to insert/update record...' });
-            }
-        }).catch(err => {
-            setNotification({ type: 0, message: 'Failed to insert/update record...' });
+            else setNotification(res);
         });
-        setNotification({type: -1, message: ''});
     }
 
     const deleteRow = (index) => {

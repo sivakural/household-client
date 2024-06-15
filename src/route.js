@@ -30,7 +30,8 @@ export default function GetPaths() {
         moiientry: hostURL + '/moii/entry',
         moiiupdate: hostURL + '/moii/update',
         moiidelete: hostURL + '/moii/delete',
-        searchurl: hostURL + '/search/all'
+        searchurl: hostURL + '/search/all',
+        expensesearch: hostURL + '/search/expense'
     }
 
     return paths;
