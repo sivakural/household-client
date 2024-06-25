@@ -67,7 +67,7 @@ export default function MarriageTopList(props) {
                 let resData = res.result;
                 if (pathname === '/moii-list') {
                     resData = resData.sort((a, b) => {
-                        return new Date(a.day) - new Date(b.day);
+                        return new Date(b.day) - new Date(a.day);
                     });
                 }
                 setResult(resData);

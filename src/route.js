@@ -10,6 +10,7 @@ export default function GetPaths() {
         expenseentry: hostURL + '/expenses/entry',
         expenseget: hostURL + '/expenses/listwithdate',
         expenseupdate: hostURL + '/expenses/update',
+        expensedelete: hostURL + '/expenses/delete',
         mtlist: hostURL + '/marriage-top/list',
         mtentry: hostURL + '/marriage-top/entry',
         mtupdate: hostURL + '/marriage-top/update',

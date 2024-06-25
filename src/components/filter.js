@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 const FilterComponent = (props) => {
-    const { categories, sendDataToParent } = props;
+    const { categories, sendDataToParent, amounts } = props;
     const date = new Date();
     const today = `${date.getFullYear()}-${(date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))}-${date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())}`;
     const [inputs, setInputs] = useState({ from: today, to: today });
@@ -22,43 +22,28 @@ const FilterComponent = (props) => {
 
     return (
         <>
-            <div style={{ display: 'flex' }}>
-                <label style={{ marginLeft: '2rem', color: '#0882eb', fontSize: '14px' }}>From <br />
+            <div style={{ display: 'flex', flexFlow: 'row', justifyContent: 'center' }}>
+                <label style={{ marginLeft: '2rem', color: '#0452be', fontSize: '14px' }}>From &nbsp;
                     <input type="date" name='from' id='from' value={inputs.from || ''} onChange={handleChange} />
                 </label>
 
-                <label style={{ marginLeft: '2rem', color: '#0882eb', fontSize: '14px' }}>To <br />
+                <label style={{ marginLeft: '2rem', color: '#0452be', fontSize: '14px' }}>To &nbsp;
                     <input type="date" name='to' id='to' value={inputs.to || ''} onChange={handleChange} />
                 </label>
 
-                <label style={{ marginLeft: '2rem', color: '#0882eb', fontSize: '14px' }}>Categorey <br />
+                <label style={{ marginLeft: '2rem', color: '#0452be', fontSize: '14px' }}>Categorey &nbsp;
                     <input type="text" name='categorey' id='categorey' list="categories" value={inputs.categorey || ''} onChange={handleChange} />
                     <datalist id="categories">
                         {categories.map((value, iter) => <option key={iter} value={value.categoreyName} />)}
                     </datalist>
                 </label>
 
-                <button style={{
-                    padding: '10px',
-                    height: 'fit-content',
-                    marginTop: '1rem',
-                    marginLeft: '2rem',
-                    backgroundColor: '#51a5ed',
-                    color: 'white',
-                    border: 'none',
-                    cursor: 'pointer'
-                }} onClick={handleClick}>Filter</button>
+                <button className='filterbtns' onClick={handleClick}>Filter</button>
 
-                <button style={{
-                    padding: '10px',
-                    height: 'fit-content',
-                    marginTop: '1rem',
-                    marginLeft: '2rem',
-                    backgroundColor: '#51a5ed',
-                    color: 'white',
-                    border: 'none',
-                    cursor: 'pointer'
-                }} onClick={handleclear}>Clear</button>
+                <button className='filterbtns' onClick={handleclear}>Clear</button>
+
+                {/* display amount of filter */}
+                <span style={{ marginLeft: '1rem', transform: 'translate(10px, 17px)' }}>Rs.{new Intl.NumberFormat('en-IN').format(amounts)}</span>
             </div>
         </>
     )

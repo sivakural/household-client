@@ -18,31 +18,31 @@
 }
 
 .entry {
-    display: inline-flex;
     float: right;
     background-color: #51a5ed;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     border-radius: 50%;
     cursor: pointer;
+    /* margin-top: 0.8rem; */
 }
 
 .back {
-    display: inline-flex;
     float: right !important;
     background-color: #51a5ed;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     border-radius: 50%;
     cursor: pointer;
+    /* margin-top: 1rem; */
 }
 
 .persons {
@@ -56,5 +56,15 @@
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
+}
+
+.filterbtns {
+    padding: 10px;
+    height: fit-content;
+    margin-left: 2rem;
+    background-color: #51a5ed;
+    color: white;
+    border: none;
+    cursor: pointer;
 }

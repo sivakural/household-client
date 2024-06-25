@@ -2,6 +2,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import GetPaths from "../route";
 import SetPerson from './utils';
+import { handleAPICall } from './util';
 import './dashboard.css';
 
 export default function Dashboard() {
@@ -17,16 +18,14 @@ export default function Dashboard() {
         // reset the result array
         setPersons([]);
 
-        fetch(humans).then(res => res.json()).then(res => {
-            if (res.res) {
-                setPersons(res.result);
-                let person = res.result.find(person => person.name == "Appa");
-                SetPerson(person);
-            }
-        }).catch((error) => {
-            console.log(error);
-        })
+        handleAPICall('get', humans, 'persons', null, setPersons)
     }, [humans]);
+
+    useEffect(() => {
+        if (!persons.length) return;
+        let person = persons.find(person => person.name == "Appa");
+        SetPerson(person);
+    }, [persons])
 
     const navigateToEntry = () => {
         navigate('expenseadd');

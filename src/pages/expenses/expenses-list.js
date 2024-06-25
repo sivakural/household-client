@@ -16,10 +16,11 @@ export default function ExpensesList() {
     const [person, setPerson] = useState({});
     const [category, setCategory] = useState([]);
     const [dataFromChild, setDataFromChild] = useState({});
+    const [total, setTotal] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        SetPerson(null, getPerson);
+        if (!person?.personID) SetPerson(null, getPerson);
         handleAPICall('get', categories, 'categories list', null, setCategory).then((res) => {
             setNotification(res);
         });
@@ -69,10 +70,24 @@ export default function ExpensesList() {
         setDataFromChild(data);
     }
 
+    useEffect(() => {
+        // action on update of result
+        if (result.length) {
+            let tot = 0;
+            result.forEach((item) => {
+                item.expenses.forEach((exp) => {
+                    tot += exp.amount;
+                });
+            });
+
+            setTotal(tot);
+        } else setTotal(0)
+    }, [result]);
+
     return (
         <>
             {/* setting filter base */}
-            <FilterComponent categories={category} sendDataToParent={handleDataFromChild} />
+            <FilterComponent categories={category} sendDataToParent={handleDataFromChild} amounts={total}/>
 
             <table className="expenselistTable table">
                 <thead>
@@ -83,8 +98,8 @@ export default function ExpensesList() {
                 <tbody>
                     {result.map((data, index) =>
                         <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{data.date}</td>
+                            <td style={{ display: 'inline-flex', alignItems: 'center' }}>{index + 1}</td>
+                            <td style={{ display: 'inline-flex', alignItems: 'center' }}>{data.date}</td>
                             <td style={{ flex: '0 0 77%' }} colSpan='3'>
                                 <table className='inner-table'>
                                     <tbody>
