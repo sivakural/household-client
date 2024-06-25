@@ -86,19 +86,20 @@ export default function MarriageTopList(props) {
     }
 
     const deleteRow = (data, indexum) => {
-        fetch(`${api.delete}/${data.id}`, {
-            method: 'delete'
-        }).then(res => res.json()).then(res => {
-            if (res.res) {
-                result.splice(indexum, 1);
-                setResult([...result]);
-                setNotification({ type: 1, message: 'Successfully removed the record...' });
-            } else {
-                setNotification({ type: 0, message: 'Failed to remove record...' + res.err });
-            }
-        }).catch(err => {
-            setNotification({ type: 0, message: 'Failed to remove record...' + err.status });
-        })
+        setNotification({ type: 0, message: 'Does not have a permission to delete...' });
+        // fetch(`${api.delete}/${data.id}`, {
+        //     method: 'delete'
+        // }).then(res => res.json()).then(res => {
+        //     if (res.res) {
+        //         result.splice(indexum, 1);
+        //         setResult([...result]);
+        //         setNotification({ type: 1, message: 'Successfully removed the record...' });
+        //     } else {
+        //         setNotification({ type: 0, message: 'Failed to remove record...' + res.err });
+        //     }
+        // }).catch(err => {
+        //     setNotification({ type: 0, message: 'Failed to remove record...' + err.status });
+        // })
     }
 
     return (
