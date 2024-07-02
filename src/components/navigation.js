@@ -19,6 +19,8 @@ export default function Navigation({ to }) {
         { comp: 'Bangle Top', routepath: '/bangle-top', includes: '/bangle-top/entry' },
         { comp: 'kudipona Top', routepath: '/kudipona-top', includes: '/kudipona-top/entry' },
         { comp: 'Moii List', routepath: '/moii-list', includes: '/moii-list/entry' },
+        { comp: 'Activities', routepath: '/activities', includes: '/activities' },
+        { comp: 'Info', routepath: '/info', includes: '/info' },
         { comp: 'Search', routepath: '/search', includes: '/search' }
     ];
 

@@ -36,7 +36,7 @@ input {
     float: left;
 }
 
-#village, #street, #name, #pattam, #gold, #others {
+#village, #street, #name, #pattam, #gold, #others, #season, #quantity, #rate {
     width: 80%;
 }
 
@@ -66,4 +66,8 @@ input[type='reset'] {
 input[type='submit']:hover, input[type='reset']:hover {
     background-color: black;
     color: white;
+}
+.disabled {
+    background-color: gray !important;
+    pointer-events: none !important;
 }

@@ -37,3 +37,28 @@ const handleHeaders = (type, inputs) => {
 
     return obj;
 }
+
+export function validateObjInputs(inputs, keys) {
+    let isTrue = false;
+    for (let i = 0; i < keys.length; i++) {
+        if (inputs[keys[i]] === undefined || inputs[keys[i]] === null || inputs[keys[i]] === '') {
+            isTrue = true;
+            break;
+        }
+    }
+
+    return isTrue;
+}
+
+export function validateArrInputs(inputs, keys) {
+    let isTrue = false;
+
+    for (let j = 0; j < inputs.length; j++) {
+        isTrue = validateObjInputs(inputs[j], keys);
+        if (isTrue) {
+            break;
+        }
+    }
+
+    return isTrue;
+}

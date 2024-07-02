@@ -1,0 +1,60 @@
+.content {
+    float: left;
+    padding: 10px;
+}
+
+.content-txt {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.content-txt img {
+    margin-left: 0.5rem;
+}
+
+/* Dropup content (Hidden by Default) */
+.dropup-content {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 115px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropup-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropup links on hover */
+.dropup-content a:hover {
+    background-color: #ddd
+}
+
+/* Show the dropup menu on hover */
+.content-txt:hover .dropup-content {
+    display: block;
+}
+
+/* Change the background color of the dropup button when the dropup content is shown */
+.content-txt:hover .dropup {
+    background-color: #2980B9;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    font-size: 14px;
+}
+.form-input {
+    width: 50%;
+    margin-top: 5px;
+    margin-left: 0.2rem;
+}

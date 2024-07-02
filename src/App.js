@@ -6,7 +6,10 @@ import ExpsensesAdd from './pages/expenses/expenses-add';
 import MarriageTopList from './pages/marriage-top/marriage-top-list';
 import MarriageTop from './pages/marriage-top/marriage-top';
 import MarriageTopEdit from './pages/marriage-top/marriage-top-edit';
+import Activities from './pages/activities/activities';
+import Info from './pages/info/info';
 import Search from './pages/search';
+import InfoAdd from './pages/info/infoadd';
 import './App.css';
 
 function App() {
@@ -44,6 +47,12 @@ function App() {
               <Route index element={<MarriageTopList />} />
               <Route path='entry' element={<MarriageTopEdit />} />
               <Route path='entry/:id' element={<MarriageTopEdit />} />
+            </Route>
+            <Route path='/activities' element={<Activities />} />
+            <Route path='/info' element={<MarriageTop />}>
+              <Route index element={<Info />} />
+              <Route path='entry' element={<InfoAdd />} />
+              <Route path='entry/:id' element={<InfoAdd />} />
             </Route>
             <Route path='/search' element={<MarriageTop />}>
               <Route index element={<Search />} />
