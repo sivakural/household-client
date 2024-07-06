@@ -31,8 +31,12 @@ export default function GetPaths() {
         moiientry: hostURL + '/moii/entry',
         moiiupdate: hostURL + '/moii/update',
         moiidelete: hostURL + '/moii/delete',
-        infolist: hostURL + '/information/list',
-        infoadd: hostURL + '/information/entry',
+        infoformlist: hostURL + '/information/list',
+        infoformadd: hostURL + '/information/entry',
+        infoformupdate: hostURL + '/information/update',
+        infogenlist: hostURL + '/information/glist',
+        infogenadd: hostURL + '/information/gentry',
+        infogenupdate: hostURL + '/information/gupdate',
         searchurl: hostURL + '/search/all',
         expensesearch: hostURL + '/search/expense'
     }

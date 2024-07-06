@@ -41,7 +41,7 @@ const handleHeaders = (type, inputs) => {
 export function validateObjInputs(inputs, keys) {
     let isTrue = false;
     for (let i = 0; i < keys.length; i++) {
-        if (inputs[keys[i]] === undefined || inputs[keys[i]] === null || inputs[keys[i]] === '') {
+        if (!inputs[keys[i]] || inputs[keys[i]] === undefined || inputs[keys[i]] === null || inputs[keys[i]] === '') {
             isTrue = true;
             break;
         }
@@ -61,4 +61,14 @@ export function validateArrInputs(inputs, keys) {
     }
 
     return isTrue;
+}
+
+export var table = "Forming";
+
+export function setTable(val) {
+    table = val;
+}
+
+export function formatDate(date) {
+    return `${date.getFullYear()}-${(date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))}-${date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())}`;
 }

@@ -5,13 +5,14 @@ import addimg from '../../add.png';
 import deleteimg from '../../delete.png';
 import GetPaths from "../../route";
 import Notifications from "../../components/notifications";
+import { handleAPICall, validateArrInputs, formatDate } from '../util';
 import './expenseadd.css';
-import { handleAPICall } from '../util';
 
 export default function ExpsensesAdd() {
     const ths = ['S.No', 'Day', 'Categorey', 'Done', 'Amount', 'Action'];
+    const mandateKeys = ['date', 'categorey', 'expense', 'amount'];
     const date = new Date();
-    const today = `${date.getFullYear()}-${(date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))}-${date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())}`;
+    const today = formatDate(date);
 
     const [inputs, setInputs] = useState([]);
     const [deleteRows, setDeleteRows] = useState([]);
@@ -19,6 +20,7 @@ export default function ExpsensesAdd() {
     const [person, setPerson] = useState({});
     const [notification, setNotification] = useState({ type: -1, message: '' });
     const [isEdit, setIsEdit] = useState(false);
+    const [disable, setDisable] = useState(true);
 
     const { state } = useLocation();
     const { expenseentry, expenseget, categories, expenseupdate, expensedelete } = GetPaths();
@@ -30,6 +32,10 @@ export default function ExpsensesAdd() {
             setNotification(res);
         });
     }, [])
+
+    useEffect(() => {
+        if (inputs.length) setDisable(validateArrInputs(inputs, mandateKeys))
+    }, [inputs])
 
     useEffect(() => {
         if (state?.obj) {
@@ -141,7 +147,7 @@ export default function ExpsensesAdd() {
                         ))}
                     </tbody>
                 </table>
-                <input className='submitBtn' type="submit" value="Submit" />
+                <input type="submit" value="Submit" className={disable ? "submitBtn disabled" : 'submitBtn'}/>
             </form>
 
             {notification.type >= 0 && <Notifications notification={notification} />}

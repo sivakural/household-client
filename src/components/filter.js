@@ -1,8 +1,9 @@
 import { memo, useState } from 'react';
+import { formatDate } from '../pages/util';
 const FilterComponent = (props) => {
     const { categories, sendDataToParent, amounts } = props;
     const date = new Date();
-    const today = `${date.getFullYear()}-${(date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))}-${date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())}`;
+    const today = formatDate(date);
     const [inputs, setInputs] = useState({ from: today, to: today });
 
     const handleChange = (event) => {

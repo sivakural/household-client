@@ -1,0 +1,36 @@
+.info-table th:nth-child(3), 
+.info-table td:nth-child(3) {
+    flex: 0 0 12%;
+    max-width: none;
+}
+
+.info-table th:nth-child(4), .info-table td:nth-child(4) {
+    flex: 0 0 12%;
+    max-width: none;
+}
+
+.info-table th:nth-child(5), .info-table td:nth-child(5) {
+    flex: 0 0 12%;
+    max-width: none;
+}
+
+.info-table th:nth-child(8), .info-table td:nth-child(8) {
+    flex: 0 0 26%;
+    max-width: none;
+}
+
+.topNav {
+    display: flex;
+    align-items: center;
+}
+
+.topNav a {
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.topNav .active {
+    background-color: #51a5ed;
+    color: #fff;
+}

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './edit.css'
 import GetPaths from '../../route';
 import MarriageTopList from './marriage-top-list';
 import Notifications from "../../components/notifications";
+import './edit.css'
+import { validateObjInputs } from '../util';
 
 export default function MarriageTopEdit() {
     const [mt, setMt] = useState(false);
@@ -23,6 +24,8 @@ export default function MarriageTopEdit() {
     const [isEdit, setIsEdit] = useState(false);
     const [searchValues, setSearchValues] = useState({});
     const [notification, setNotification] = useState({ type: -1, message: '' });
+    const [disable, setDisable] = useState(true);
+    const mandateKeys = ['day', 'village', 'name', 'amount']
 
     const { state, pathname } = useLocation();
 
@@ -71,6 +74,11 @@ export default function MarriageTopEdit() {
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }));
     }
+
+    useEffect(() => {
+        if (search) return setDisable(false);
+        if ('day' in inputs) setDisable(validateObjInputs(inputs, mandateKeys));
+    }, [inputs])
 
     const getDate = () => {
         if (isEdit) return;
@@ -128,13 +136,13 @@ export default function MarriageTopEdit() {
                 <div className="row">
                     {(mt || nt || bt || kt || moii) &&
                         <div className="col-20">
-                            <label>Date <br />
+                            <label>Date <span style={{ color: 'red' }}>*</span><br />
                                 <input type="date" name='day' id='day' value={inputs.day || ''} onChange={handleChange} disabled={dateDisable} />
                             </label>
                         </div>
                     }
                     <div className="col-40">
-                        <label>Village </label><br />
+                        <label>Village {!search && <span style={{ color: 'red' }}>*</span>} </label><br />
                         <input type="text" name="village" id="village" list="villages" value={inputs.village || ''} onChange={handleChange} autoComplete='off' />
                         <datalist id="villages">
                             {villages && villages.map((village) => <option key={village.villageID} value={village.villagename} />)}
@@ -151,7 +159,7 @@ export default function MarriageTopEdit() {
 
                 <div className="row">
                     <div className="col-40">
-                        <label>Name </label><br />
+                        <label>Name {!search && <span style={{ color: 'red' }}>*</span>} </label><br />
                         <input type="text" name="name" id="name" value={inputs.name || ''} onChange={handleChange} autoComplete='off' />
                     </div>
                     <div className="col-40">
@@ -162,7 +170,7 @@ export default function MarriageTopEdit() {
                         </datalist>
                     </div>
                     <div className="col-20">
-                        <label>Amount <br />
+                        <label>Amount {!search && <span style={{ color: 'red' }}>*</span>} <br />
                             <input type="number" id='amount' name='amount' value={inputs.amount || ''} onChange={handleChange} />
                         </label>
                     </div>
@@ -181,7 +189,7 @@ export default function MarriageTopEdit() {
 
                 <div className='row'>
                     <div className='col-40'>
-                        <input type='submit' />
+                        <input type='submit' className={disable ? "disabled" : ''} />
                         <input type='reset' onClick={resetData} />
                     </div>
                 </div>

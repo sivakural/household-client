@@ -40,6 +40,10 @@ input {
     width: 80%;
 }
 
+#thingsdone {
+    width: 100%;
+}
+
 input[type='submit'] {
     background-color: #51a5ed;
     border: none;
